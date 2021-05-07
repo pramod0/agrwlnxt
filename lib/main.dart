@@ -1,74 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:agrawal/loginBox.dart';
+import 'package:agrawal/registrationForm.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Agrawal Next',
+      title: 'Agrawal Guide',
       theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-
+        primaryColor: Colors.lightBlue[900],
+        primarySwatch: Colors.lightBlue,
+        accentColor: Colors.lightBlue,
+        buttonColor: Colors.lightBlue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: LoginPage(),
+      routes: {'Registration-form': (ctx) => RegistrationForm()},
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class LoginPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-
-      _counter++;
-    });
+class _LoginPageState extends State<LoginPage> {
+  void registrationForm(BuildContext context) {
+    Navigator.of(context).pushNamed('Registration-form');
   }
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-
-        title: Text(widget.title),
-      ),
-      body: Center(
-  
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button 0 times:',
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
+            height: mediaQuery.size.height,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/Images/Login-Background.jpg'),
+                  fit: BoxFit.cover),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+            child: LayoutBuilder(builder: (context, constraints) {
+              return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 5),
+                        height: constraints.maxHeight * 0.15,
+                        width: constraints.maxWidth * 0.8,
+                        child: Image.asset('assets/Images/Agrawal-image.png')),
+                    Container(
+                        height: constraints.maxHeight * 0.45,
+                        width: constraints.maxWidth,
+                        color: Colors.transparent,
+                        child: LoginBox()),
+                    Container(
+                      height: constraints.maxHeight * 0.1,
+                      width: constraints.maxWidth,
+                      padding: const EdgeInsets.only(top: 10),
+                      alignment: Alignment.center,
+                      child: TextButton(
+                        child: Text('Don\'t have an Account ? Sing up'),
+                        onPressed: () => registrationForm(context),
+                      ),
+                    )
+                  ]);
+            })),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
