@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:agrawal/loginBox.dart';
-import 'package:agrawal/registrationForm.dart';
+import 'package:agrwlnxt/loginBox.dart';
+import 'package:agrwlnxt/registrationForm.dart';
 
 void main() {
   runApp(MyApp());
