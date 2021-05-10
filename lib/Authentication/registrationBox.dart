@@ -41,11 +41,11 @@ class _RegistrationBoxState extends State<RegistrationBox> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.text,
-                validator: (value) =>
-                    (RegExp(r"[\$&+,:;=?@#|'<>.-^*()%!]+$").hasMatch(value) ||
-                            RegExp(r'^[0-9]+$').hasMatch(value))
-                        ? 'Enter your valid name'
-                        : null,
+                validator: (value) => value.isEmpty 
+                                      ? 'Please enter your name'
+                                      : (RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]').hasMatch(value))
+                                        ? 'Invalid name'
+                                        : null,
                 onSaved: (value) {
                   print(value);
                 },
@@ -63,7 +63,7 @@ class _RegistrationBoxState extends State<RegistrationBox> {
                 validator: (value) =>
                     (!RegExp(r'(^(?:[+0]9)?[0-9]{10}$)').hasMatch(value) ||
                             value.length == 0)
-                        ? 'Please enter valid phone number'
+                        ? 'Invalid phone number'
                         : null,
                 keyboardType: TextInputType.phone,
                 onSaved: (value) {
@@ -81,7 +81,7 @@ class _RegistrationBoxState extends State<RegistrationBox> {
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) => !EmailValidator.validate(value, true)
-                    ? 'invalid email id'
+                    ? 'Invalid email id'
                     : null,
                 onSaved: (value) {
                   print(value);
