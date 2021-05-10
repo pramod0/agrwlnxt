@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 class RegistrationBox extends StatefulWidget {
   @override
@@ -40,6 +41,11 @@ class _RegistrationBoxState extends State<RegistrationBox> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.text,
+                validator: (value) =>
+                    (RegExp(r"[\$&+,:;=?@#|'<>.-^*()%!]+$").hasMatch(value) ||
+                            RegExp(r'^[0-9]+$').hasMatch(value))
+                        ? 'Enter your valid name'
+                        : null,
                 onSaved: (value) {
                   print(value);
                 },
@@ -51,15 +57,14 @@ class _RegistrationBoxState extends State<RegistrationBox> {
                 decoration: InputDecoration(
                   labelText: 'Phone.No',
                   hintText: 'Enter your mobile number',
+                  prefixText: '+91',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) {
-                  if (value.isEmpty || value.length < 10) {
-                    return 'Please enter valid phone number';
-                  } else {
-                    return null;
-                  }
-                },
+                validator: (value) =>
+                    (!RegExp(r'(^(?:[+0]9)?[0-9]{10}$)').hasMatch(value) ||
+                            value.length == 0)
+                        ? 'Please enter valid phone number'
+                        : null,
                 keyboardType: TextInputType.phone,
                 onSaved: (value) {
                   print(value);
@@ -74,14 +79,10 @@ class _RegistrationBoxState extends State<RegistrationBox> {
                   hintText: 'Enter your email address',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) {
-                  if (value.isEmpty || !value.contains('@gmail.com')) {
-                    return 'Please enter valid email address';
-                  } else {
-                    return null;
-                  }
-                },
                 keyboardType: TextInputType.emailAddress,
+                validator: (value) => !EmailValidator.validate(value, true)
+                    ? 'invalid email id'
+                    : null,
                 onSaved: (value) {
                   print(value);
                 },
@@ -109,12 +110,10 @@ class _RegistrationBoxState extends State<RegistrationBox> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.isEmpty || value.length < 7) {
-                    return 'Password must be at least 7 characters long';
-                  } else {
-                    _passwdCheck = value;
-                    return null;
-                  }
+                  _passwdCheck = value;
+                  return value.length < 7
+                      ? 'Password must be at least 7 characters long'
+                      : null;
                 },
                 keyboardType: TextInputType.visiblePassword,
               ),
@@ -127,13 +126,8 @@ class _RegistrationBoxState extends State<RegistrationBox> {
                   hintText: 'Re-enter your Password',
                   border: OutlineInputBorder(),
                 ),
-                validator: (value) {
-                  if (value != _passwdCheck) {
-                    return 'password doesn\'t match';
-                  } else {
-                    return null;
-                  }
-                },
+                validator: (value) =>
+                    value != _passwdCheck ? 'password doesn\'t match' : null,
                 keyboardType: TextInputType.visiblePassword,
                 onSaved: (value) {
                   print(value);

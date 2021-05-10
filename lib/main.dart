@@ -1,6 +1,6 @@
 import 'package:agrwlnxt/Authentication/loginScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:agrwlnxt/registrationBox.dart';
+import 'package:agrwlnxt/Authentication/registrationBox.dart';
 
 void main() {
   runApp(MyApp());
