@@ -8,7 +8,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  
   bool _isLogin;
 
   @override
@@ -21,11 +20,19 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
 
+    double _screenHeight = mediaQuery.size.height -
+        mediaQuery.padding.top -
+        mediaQuery.padding.bottom;
+    double _screenWidth = mediaQuery.size.width -
+        mediaQuery.padding.left -
+        mediaQuery.padding.right;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
-            height: mediaQuery.size.height,
-            padding: const EdgeInsets.all(10),
+            height: _screenHeight,
+            width: _screenWidth,
+            alignment: Alignment.center,
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/Images/Login-Background.jpg'),
@@ -33,18 +40,20 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             child: LayoutBuilder(builder: (context, constraints) {
               return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 5),
-                        height: constraints.maxHeight * 0.15,
-                        width: constraints.maxWidth * 0.8,
-                        child: Image.asset('assets/Images/Agrawal-image.png')),
+                        height: constraints.maxHeight * 0.11,
+                        width: constraints.maxWidth * 0.7,
+                        margin: const EdgeInsets.only(bottom: 10),
+                        child: Image.asset(
+                          'assets/Images/Agrawal-image.png',
+                          fit: BoxFit.contain,
+                        )),
                     Container(
                         height: constraints.maxHeight * 0.45,
-                        width: constraints.maxWidth,
+                        width: constraints.maxWidth * 0.9,
                         child: Card(
                           elevation: 4,
                           color: Colors.transparent,
@@ -63,7 +72,9 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       floatingActionButton: TextButton(
         child: Text(
-          _isLogin ? 'Don\'t have an Account ? Sign up' : 'Have an account ? Login now !',
+          _isLogin
+              ? 'Don\'t have an Account ? Sign up'
+              : 'Have an account ? Login now !',
           style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.bold),

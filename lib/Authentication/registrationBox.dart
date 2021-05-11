@@ -41,11 +41,12 @@ class _RegistrationBoxState extends State<RegistrationBox> {
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.text,
-                validator: (value) => value.isEmpty 
-                                      ? 'Please enter your name'
-                                      : (RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]').hasMatch(value))
-                                        ? 'Invalid name'
-                                        : null,
+                validator: (value) => value.isEmpty
+                    ? 'Please enter your name'
+                    : (RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]')
+                            .hasMatch(value))
+                        ? 'Invalid name'
+                        : null,
                 onSaved: (value) {
                   print(value);
                 },

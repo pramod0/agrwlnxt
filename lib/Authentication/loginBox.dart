@@ -28,76 +28,69 @@ class _LoginBoxState extends State<LoginBox> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  hintText: 'Mobile number or email address',
-                  border: OutlineInputBorder(),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+            decoration: InputDecoration(
+              hintText: 'Mobile number or email address',
+              border: OutlineInputBorder(),
+            ),
+            keyboardType: TextInputType.emailAddress,
+            validator: (value) {
+              return 'User Not found';
+            },
+            onSaved: (value) {
+              print(value);
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextFormField(
+            obscureText: !_passwordVisible,
+            decoration: InputDecoration(
+              hintText: 'Password',
+              border: OutlineInputBorder(),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
                 ),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  return 'User Not found';
-                },
-                onSaved: (value) {
-                  print(value);
+                onPressed: () {
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                obscureText: !_passwordVisible,
-                decoration: InputDecoration(
-                  hintText: 'Password',
-                  border: OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _passwordVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _passwordVisible = !_passwordVisible;
-                      });
-                    },
+            keyboardType: TextInputType.visiblePassword,
+            validator: (value) {
+              return 'Invalid password';
+              // find in database and compare using firebase
+            },
+            onSaved: (value) {
+              print(value);
+            },
+          ),
+        ),
+        Container(
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  child: Text(
+                    'Forgot password ?',
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold),
                   ),
+                  onPressed: () {},
                 ),
-                keyboardType: TextInputType.visiblePassword,
-                validator: (value) {
-                  return 'Invalid password';
-                  // find in database and compare using firebase
-                },
-                onSaved: (value) {
-                  print(value);
-                },
-              ),
-            ),
-            Container(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      child: Text(
-                        'Forgot password ?',
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      onPressed: () {},
-                    ),
-                    RaisedButton(child: const Text('Login'), onPressed: _login)
-                  ],
-                )),
-          ]),
+                RaisedButton(child: const Text('Login'), onPressed: _login)
+              ],
+            )),
+      ]),
     );
   }
 }
