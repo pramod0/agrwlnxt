@@ -35,6 +35,7 @@ class _LoginBoxState extends State<LoginBox> {
             decoration: InputDecoration(
               hintText: 'Mobile number or email address',
               border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.person)
             ),
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
@@ -52,6 +53,7 @@ class _LoginBoxState extends State<LoginBox> {
             decoration: InputDecoration(
               hintText: 'Password',
               border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.lock),
               suffixIcon: IconButton(
                 icon: Icon(
                   _passwordVisible ? Icons.visibility : Icons.visibility_off,

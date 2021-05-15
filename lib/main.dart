@@ -1,6 +1,5 @@
 import 'package:agrwlnxt/Authentication/loginScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:agrwlnxt/Authentication/registrationBox.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +18,6 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: LoginScreen(),
-      routes: {'Registration-form': (ctx) => RegistrationBox()},
     );
   }
 }
