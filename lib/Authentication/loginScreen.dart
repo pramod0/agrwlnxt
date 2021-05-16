@@ -33,11 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
             height: _screenHeight,
             width: _screenWidth,
             alignment: Alignment.center,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/Images/Login-Background.jpg'),
-                  fit: BoxFit.cover),
-            ),
+          
             child: LayoutBuilder(builder: (context, constraints) {
               return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -48,15 +44,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         width: constraints.maxWidth * 0.7,
                         margin: const EdgeInsets.only(bottom: 10),
                         child: Image.asset(
-                          'assets/Images/Agrawal-image.png',
+                          'assets/Images/logo.png',
                           fit: BoxFit.contain,
                         )),
                     Container(
                         height: constraints.maxHeight * 0.45,
                         width: constraints.maxWidth * 0.9,
                         child: Card(
-                          elevation: 4,
-                          color: Colors.transparent,
+                          elevation: 0,
+                          
                           child: Scrollbar(
                             child: SingleChildScrollView(
                               child: Padding(
