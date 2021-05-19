@@ -29,14 +29,17 @@ class _LoginBoxState extends State<LoginBox> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
+      child: Column(
+        mainAxisSize: MainAxisSize.min, 
+        children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
             decoration: InputDecoration(
-                hintText: 'Mobile number or email address',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.person)),
+              hintText: 'Email address',
+              border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.person)
+            ),
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
               return 'User Not found';
