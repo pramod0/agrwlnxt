@@ -94,23 +94,22 @@ class _ForgotPasswordBoxState extends State<ForgotPasswordBox> {
             ],
           ),
           Container(
-            padding: const EdgeInsets.only(top: 10),
-            child: _isCorrect
-                ? RichText(
-                    text: TextSpan(
-                        text: _flag == 1
-                            ? 'We will send you the password reset link on'
-                            : 'User Not found -',
-                        style: TextStyle(color: Colors.black),
-                        children: [
+              padding: const EdgeInsets.only(top: 10),
+              child: Visibility(
+                  visible: _isCorrect,
+                  child: RichText(
+                      text: TextSpan(
+                          text: _flag == 1
+                              ? 'We will send you the password reset link on'
+                              : 'User Not found -',
+                          style: TextStyle(color: Colors.black),
+                          children: [
                         TextSpan(
                             text: ' $_userInput',
                             style: TextStyle(
                                 color: _flag == 1 ? Colors.green : Colors.red,
                                 fontWeight: FontWeight.bold))
-                      ]))
-                : null,
-          )
+                      ]))))
         ],
       ),
       actions: [
