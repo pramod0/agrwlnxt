@@ -1,3 +1,4 @@
+import 'package:agrwlnxt/Authentication/forgotpasswordBox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -33,10 +34,9 @@ class _LoginBoxState extends State<LoginBox> {
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
             decoration: InputDecoration(
-              hintText: 'Mobile number or email address',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.person)
-            ),
+                hintText: 'Mobile number or email address',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.person)),
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
               return 'User Not found';
@@ -87,7 +87,14 @@ class _LoginBoxState extends State<LoginBox> {
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {},
+                  onPressed: (){
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      useSafeArea: true,
+                      builder: (context) => ForgotPasswordBox()
+                    );
+                  },
                 ),
                 RaisedButton(child: const Text('Login'), onPressed: _login)
               ],
