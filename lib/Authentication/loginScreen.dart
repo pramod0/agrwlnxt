@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: constraints.maxWidth * 0.7,
                           margin: const EdgeInsets.only(bottom: 10),
                           child: Image.asset(
-                            'assets/Images/Agrawal-image.png',
+                            'assets/Images/logo.png',
                             fit: BoxFit.contain,
                           )),
                       Container(
