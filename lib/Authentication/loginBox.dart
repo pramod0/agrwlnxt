@@ -1,3 +1,5 @@
+import 'package:agrwlnxt/Authentication/forgotpasswordBox.dart';
+import 'package:agrwlnxt/Quiz-Folder/quiz_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -17,11 +19,14 @@ class _LoginBoxState extends State<LoginBox> {
   }
 
   void _login() {
-    final isValid = _formKey.currentState.validate();
+    //final isValid = _formKey.currentState.validate();
 
-    if (isValid) {
-      _formKey.currentState.save();
-    }
+    //if (isValid) {
+      //_formKey.currentState.save();
+      Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => QuizScreen('urvshtrivedi123@gmail.com'),
+          ));
+    //}
   }
 
   @override
@@ -89,7 +94,14 @@ class _LoginBoxState extends State<LoginBox> {
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {},
+                  onPressed: (){
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      useSafeArea: true,
+                      builder: (context) => ForgotPasswordBox()
+                    );
+                  },
                 ),
                 RaisedButton(child: const Text('Login'), onPressed: _login)
               ],
