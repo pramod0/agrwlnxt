@@ -16,6 +16,13 @@ class _LoginScreenState extends State<LoginScreen> {
     _isLogin = true;
   }
 
+   void registrationDone()
+  {
+    setState(() {
+      _isLogin = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -35,9 +42,13 @@ class _LoginScreenState extends State<LoginScreen> {
               height: _screenHeight,
               width: _screenWidth,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/Images/Login-Background.jpg'),
-                    fit: BoxFit.cover),
+                gradient: LinearGradient(colors: [
+                  Colors.white,
+                  Colors.cyan,
+                  Colors.blue.withOpacity(0.5)
+                  ],
+                  begin: Alignment.topLeft, end: Alignment.bottomRight
+                ),      
               ),
               child: LayoutBuilder(builder: (context, constraints) {
                 return Column(
@@ -57,13 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: constraints.maxWidth * 0.9,
                           child: Card(
                             elevation: 4,
-                            color: Colors.transparent,
+                            color: Colors.white,
                             child: Scrollbar(
                               child: SingleChildScrollView(
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child:
-                                      _isLogin ? LoginBox() : RegistrationBox(),
+                                      _isLogin ? LoginBox() : RegistrationBox(registrationDone),
                                 ),
                               ),
                             ),
@@ -75,11 +86,11 @@ class _LoginScreenState extends State<LoginScreen> {
       floatingActionButton: Visibility(
         visible: !_keyboardIsOpen,
         child: FloatingActionButton.extended(
-         backgroundColor: Colors.transparent,
+         backgroundColor: Colors.white,
          elevation: 4, 
           label: Text(
             _isLogin
-                ? 'Don\'t have an Account ? Sign up'
+                ? 'Don\'t have an account ? Sign up'
                 : 'Have an account ? Login now !',
             style: TextStyle(
                 color: Theme.of(context).primaryColor,

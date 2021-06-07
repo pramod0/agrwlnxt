@@ -1,6 +1,5 @@
 import 'package:agrwlnxt/Quiz-Folder/topicsForSubject.dart';
 import 'package:flutter/material.dart';
-import 'package:random_color/random_color.dart';
 
 class ListOFSubjects extends StatefulWidget {
   final String _standard;
@@ -46,10 +45,8 @@ class _ListOFSubjectsState extends State<ListOFSubjects> {
           margin: const EdgeInsets.only(top: 5, bottom: 5),
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-                RandomColor()
-                    .randomColor(colorHue: ColorHue.blue)
-                    .withOpacity(0.2),
-                RandomColor().randomColor(colorHue: ColorHue.blue)
+                Colors.blue.withOpacity(0.2),
+                Colors.blue
               ], begin: Alignment.topLeft, end: Alignment.bottomRight),
               borderRadius: BorderRadius.circular(10)),
           child: ExpansionTile(
