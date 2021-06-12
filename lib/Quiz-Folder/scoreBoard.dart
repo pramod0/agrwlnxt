@@ -7,7 +7,7 @@ class ScoreBoard extends StatelessWidget {
   final Function restart;
   final String std;
   final String topic;
-  final int posCount, negCount, notAttempted;
+  int posCount, negCount, notAttempted;
 
   ScoreBoard({@required this.restart,@required this.std,@required this.topic}) {
     this.posCount = 0;

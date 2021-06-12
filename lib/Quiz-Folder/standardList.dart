@@ -10,14 +10,13 @@ class ListOFStandard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {;
+  Widget build(BuildContext context) {
     return ListView(
       children: stdList.map((standard) {
         return Container(
           margin: const EdgeInsets.only(top: 5, bottom: 5),
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
+              gradient: LinearGradient(colors: [
                 RandomColor()
                     .randomColor(colorHue: ColorHue.blue)
                     .withOpacity(0.2),
