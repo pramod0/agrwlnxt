@@ -35,6 +35,7 @@ class _TopicsState extends State<Topics> {
           );
         },
         itemCount: 50,
-      ));
+      )
+      );
   }
 }

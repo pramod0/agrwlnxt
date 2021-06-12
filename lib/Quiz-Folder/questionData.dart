@@ -11,7 +11,7 @@ class Question
     "The coordinates of a point P, where PQ is the diameter of circle whose centre is (2, – 3) and Q is (1, 4) is:"
   ];
 
-  static List <int>choosenOption = List(questionList.length); 
+  static List <int>choosenOption = [questionList.length]; 
 }
 
 class Answers
