@@ -1,4 +1,5 @@
-import 'package:agrwlnxt/Authentication/forgotpasswordBox.dart';
+import 'package:agrwlnxt/Authentication/forgotPasswdBox.dart';
+import 'package:agrwlnxt/Authentication/userClass.dart';
 import 'package:agrwlnxt/Quiz-Folder/quiz_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +9,12 @@ import 'package:email_validator/email_validator.dart';
 class LoginBox extends StatefulWidget {
   String _userid;
   String _passWord;
+  String _username;
 
   LoginBox() {
     this._userid = null;
     this._passWord = null;
+    this._username = null;
   }
 
   @override
@@ -33,21 +36,31 @@ class _LoginBoxState extends State<LoginBox> {
     _loginMsg = null;
   }
 
-  void successfullLogin(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => QuizScreen(widget._userid)));
+  void successfullLogin(
+      BuildContext context, UserCheck userCheck, String userName) {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => QuizScreen(widget._userid,widget._username)));
   }
 
-  Future<bool> checkExistence() {
+  Future<bool> checkExistence(UserCheck userCheck) {
     FirebaseFirestore.instance.collection('/Users').snapshots().listen((data) {
-      data.docs.singleWhere((element) {
-        return _flag = (element['email-Id'] == '${widget._userid}' && element['password'] == '${widget._passWord}')
-            ? true
-            : false;
-      });
-    });
+      
+      var userDoc = data.docs.singleWhere(
+        (element) {
+          return (element['email-Id'] == '${userCheck.emailId}' && element['password'] == '${userCheck.password}');
+        }, 
+        orElse: () {
+          return data.docs.first;
+        }
+      );
 
-    return Future.delayed(Duration(seconds: 2), () => _flag);
+      _flag = (userDoc['email-Id'] == userCheck.emailId) ? true : false;
+      widget._username = userDoc['Name'];
+
+    });
+    return Future.delayed(Duration(seconds: 5), () {
+      return _flag;
+    });
   }
 
   void _login(BuildContext context) async {
@@ -55,9 +68,27 @@ class _LoginBoxState extends State<LoginBox> {
 
     if (isValid) {
       _formKey.currentState.save();
+      var userCheck =
+          new UserCheck(emailId: widget._userid, password: widget._passWord);
 
-      var check = await checkExistence();
-      check ? successfullLogin(context) : _loginMsg = 1;
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        child: AlertDialog(
+            title: Text('Please Wait..'),
+            content: SizedBox(
+              height: 70,
+              child: Center(child: CircularProgressIndicator()),
+            )),
+      );
+
+      var check = await checkExistence(userCheck);
+
+      Navigator.of(context).pop();
+
+      check
+          ? successfullLogin(context, userCheck, widget._username)
+          : _loginMsg = 1;
 
       setState(() {
         _loginMsgVisible = true;
@@ -156,10 +187,22 @@ class _LoginBoxState extends State<LoginBox> {
                 child: Center(
                     child: _loginMsg == null
                         ? CircularProgressIndicator()
-                        : Text('Invalid emailId or Password')))
+                        : Text('Invalid email address or Password',
+                            style: TextStyle(color: Colors.red))))
           ],
         ),
       ),
     );
   }
 }
+
+/*
+      FirebaseFirestore.instance.collection('/Users').snapshots()
+        .listen((data){
+          data.docs.forEach((element) {
+            (element['email-Id'] == '${widget._userid}' && element['password'] == '${widget._passWord}')
+              ? successfullLogin(context)
+              : _loginMsg = 1;
+        });
+      });
+*/

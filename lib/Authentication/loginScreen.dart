@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
     _isLogin = true;
   }
 
-   void registrationDone()
+  void registrationDone()
   {
     setState(() {
       _isLogin = true;
@@ -41,14 +41,13 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Container(
               height: _screenHeight,
               width: _screenWidth,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [
                   Colors.white,
                   Colors.cyan,
                   Colors.blue.withOpacity(0.5)
-                  ],
-                  begin: Alignment.topLeft, end: Alignment.bottomRight
-                ),      
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
               ),
               child: LayoutBuilder(builder: (context, constraints) {
                 return Column(
@@ -69,14 +68,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Card(
                             elevation: 4,
                             color: Colors.white,
-                            child: Scrollbar(
-                              child: SingleChildScrollView(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child:
-                                      _isLogin ? LoginBox() : RegistrationBox(registrationDone),
-                                ),
-                              ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: _isLogin ? LoginBox() : RegistrationBox(registrationDone),
                             ),
                           )),
                     ]);
@@ -86,8 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
       floatingActionButton: Visibility(
         visible: !_keyboardIsOpen,
         child: FloatingActionButton.extended(
-         backgroundColor: Colors.white,
-         elevation: 4, 
+          backgroundColor: Colors.white,
+          elevation: 4,
           label: Text(
             _isLogin
                 ? 'Don\'t have an account ? Sign up'

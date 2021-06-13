@@ -5,16 +5,17 @@ import 'package:flutter/material.dart';
 
 class QuizScreen extends StatefulWidget {
   final String _userId;
+  final String _userName;
+  final List<String> _std = []; 
 
-  QuizScreen(this._userId);
+  QuizScreen(this._userId,this._userName);
   @override
   _QuizScreenState createState() => _QuizScreenState();
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  final List<String> _std = ['10', '11-Sci', '11-Comm', '12-Sci', '12-Comm'];
-  String _stdSelected;
   
+  String _stdSelected;
   bool _flag;
 
   @override
@@ -46,6 +47,15 @@ class _QuizScreenState extends State<QuizScreen> {
         appBar: AppBar(
           title: Text('Quiz'),
           centerTitle: true,
+          actions: [
+            TextButton(
+            child: const Text('LogOut',style: TextStyle(color:Colors.white),),
+            onPressed: (){
+              widget._std.clear();
+              Navigator.of(context).popAndPushNamed('-');
+            }, 
+          )
+          ],
         ),
         body: Container(
             height: bodyHeight,
@@ -69,7 +79,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         )),
                     child: ListTile(
                       contentPadding: const EdgeInsets.all(8.0),
-                      title: const Text('Welcome, Urvesh',
+                      title: Text('Welcome, ${widget._userName}',
                           style: TextStyle(color: Colors.black)),
                       subtitle: Text(widget._userId,
                           style: TextStyle(color: Colors.yellow[900])),
@@ -90,16 +100,16 @@ class _QuizScreenState extends State<QuizScreen> {
                                   hint: Text(
                                     'Choose Std',
                                     style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Theme.of(context).primaryColor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   dropdownColor: Colors.white,
                                   style: TextStyle(
-                                    color: Colors.grey,
+                                    color: Theme.of(context).primaryColor,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                  items: _std.map((standard) {
+                                  items: widget._std.map((standard) {
                                     return DropdownMenuItem<String>(
                                         value: standard, child: Text(standard));
                                   }).toList(),
@@ -138,18 +148,19 @@ class _QuizScreenState extends State<QuizScreen> {
                           ),
                         ],
                       )),
-                  Container(
-                      height: constraints.maxHeight * 0.74,
-                      width: constraints.maxWidth,
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: _flag
-                          ? (_stdSelected != null
-                              ? ListOFSubjects(_stdSelected)
-                              : ListOFStandard(
-                                  selectSTD: selectSTD,
-                                  stdList: _std,
-                                ))
-                          : HistoryBox())
+                  Container(                  
+                    height: constraints.maxHeight * 0.74,
+                    width: constraints.maxWidth,
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: _flag
+                        ? _stdSelected != null
+                            ? ListOFSubjects(_stdSelected)
+                            : ListOFStandard(
+                                selectSTD: selectSTD,
+                                stdList: widget._std,
+                              )
+                        : HistoryBox()
+                  )
                 ],
               );
             })));

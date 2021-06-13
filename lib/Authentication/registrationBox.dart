@@ -1,10 +1,10 @@
+import 'package:agrwlnxt/Authentication/userClass.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegistrationBox extends StatefulWidget {
-
+  
   String _userName;
   String _phnNo;
   String _emailId;
@@ -12,13 +12,11 @@ class RegistrationBox extends StatefulWidget {
   var _id;
   final Function registrationDone;
 
-  RegistrationBox(this.registrationDone){
-
+  RegistrationBox(this.registrationDone) {
     this._userName = null;
     this._phnNo = null;
     this._emailId = null;
     this._password = null;
-    this._id = null;
   }
 
   @override
@@ -38,64 +36,84 @@ class _RegistrationBoxState extends State<RegistrationBox> {
     _flag = false;
   }
 
-  void openDialoge(BuildContext context , String title){
+  void openDialoge(BuildContext context, String title) {
     showDialog(
         context: context,
         barrierDismissible: false,
         useSafeArea: true,
-        builder: (_)=>AlertDialog(
-          title: Text('Registration'),
-          content: Text(title),
-          elevation: 20,
-          actions: [
-            FlatButton(
-              child: Text('Okay',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
-              onPressed: (){
-                widget.registrationDone();
-                Navigator.of(context).pop();
-              }
-            ),
-          ],
-        )
-    );
+        builder: (_) => AlertDialog(
+              title: Text('Registration'),
+              content: Text(title),
+              elevation: 20,
+              actions: [
+                FlatButton(
+                    child: Text('Okay',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    onPressed: () {
+                      widget.registrationDone();
+                      Navigator.of(context).pop();
+                    }),
+              ],
+            ));
   }
 
-  Future <bool> checkExistence() {
-    
-FirebaseFirestore.instance.collection('/Users').snapshots()
-      .listen((data) { 
-        data.docs.singleWhere((element){
-          return _flag = (element['email-Id'] == '${widget._emailId}' ? true : false);
-        });
+  Future<bool> checkExistence(User user) {
+    FirebaseFirestore.instance.collection('/Users').snapshots().listen((data) {
+      var userDoc = data.docs.singleWhere((element) {
+        return (element['email-Id'] == '${user.emailId}');
+      }, 
+      orElse: () {
+        return data.docs.first;
       });
-       
-    return Future.delayed(
-      Duration(seconds: 2),
-      () => _flag);
-    
+      _flag = userDoc['email-Id'] == user.emailId ? true : false;
+    });
+    return Future.delayed(Duration(seconds: 5), () {
+      return _flag;
+    });
   }
 
-  void _singUp() async {
+  void _singUp(BuildContext context) async {
     final isValid = _formKey.currentState.validate();
 
     if (isValid) {
       _formKey.currentState.save();
 
-      var check = await checkExistence();
-      if(check)
-      {
+      var user = new User(
+          userName: widget._userName,
+          phnNo: widget._phnNo,
+          emailId: widget._emailId,
+          password: widget._password);
+
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        child: AlertDialog(
+            title: Text('Please Wait..'),
+            content: SizedBox(
+              height: 70,
+              child: Center(child: CircularProgressIndicator()),
+            )),
+      );
+
+      var check = await checkExistence(user);
+
+      Navigator.of(context).pop();
+
+      if (check) {
         openDialoge(context, 'User already exist with this email id');
-      }
-      else{
-        setState(() {
-          widget._id = FirebaseFirestore.instance.collection('/Users').add({
-            'Name': widget._userName,
-            'email-Id':widget._emailId,
-            'password': widget._password,
-            'phnNo': widget._phnNo,
-          });
-          widget._id == null ?  openDialoge(context, 'sorry,\nsomething went Wrong.. Try again later') : openDialoge(context, 'Welcome to Agrawal-Next,\n Login to continue');
+      } else {
+        widget._id = FirebaseFirestore.instance.collection('/Users').add({
+          'Name': user.userName,
+          'email-Id': user.emailId,
+          'password': user.password,
+          'phnNo': user.phnNo,
         });
+        widget._id == null
+            ? openDialoge(
+                context, 'sorry,\nsomething went Wrong.. Try again later')
+            : openDialoge(
+                context, 'Welcome to Agrawal-Next ${user.userName},\n Login to continue');
       }
     }
   }
@@ -216,12 +234,15 @@ FirebaseFirestore.instance.collection('/Users').snapshots()
                 Container(
                     alignment: Alignment.bottomRight,
                     padding: const EdgeInsets.only(right: 6),
-                    child: FlatButton(child: const Text('Sign Up',style: TextStyle(color:Colors.white)), onPressed:_singUp,color: Theme.of(context).primaryColor,)
-                )
+                    child: FlatButton(
+                      child: const Text('Sign Up',
+                          style: TextStyle(color: Colors.white)),
+                      onPressed: () => _singUp(context),
+                      color: Theme.of(context).primaryColor,
+                    ))
               ],
             )),
       ),
     );
   }
 }
-

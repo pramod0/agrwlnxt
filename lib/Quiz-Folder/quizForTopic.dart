@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class QuizBox extends StatefulWidget {
   final String std;
   final String subject;
-  final int topic;
+  final String topic;
 
   QuizBox({this.std, this.subject, this.topic});
 
@@ -68,13 +68,13 @@ class _QuizBoxState extends State<QuizBox> {
                     width: constraints.maxWidth,
                     padding: const EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-                      color: Colors.yellow[700],
+                      color: Colors.lightBlue[900].withOpacity(0.6),
                       borderRadius: BorderRadius.circular(constraints.maxHeight * 0.04)
                     ),
                     child: FittedBox(
                         fit: BoxFit.contain,
                         child: Text(
-                            'Topic - ${widget.topic} / ${widget.subject} / ${widget.std}')),
+                            'Topic - ${widget.topic}')),
                   ),
                   SizedBox(
                     height: constraints.maxHeight * 0.02,
@@ -92,13 +92,13 @@ class _QuizBoxState extends State<QuizBox> {
                             height: constraints2.maxHeight * 0.9,
                             width: constraints2.maxWidth,
                             child: index == 0
-                                ? StartQuizBox(_startRestartQuiz)
+                                ? StartQuizBox(_startRestartQuiz,widget.std,widget.subject,widget.topic)
                                 : index >= Question.questionList.length
-                                    ? ScoreBoard(restart: _startRestartQuiz, std: widget.std, topic: '${widget.subject}-${widget.topic}')
+                                    ? ScoreBoard(restart: _startRestartQuiz, std: widget.std, topic: widget.topic)
                                     : Quiz(index),
                           ),
                           Visibility(
-                              visible: (index > 0 && index <= Question.questionList.length-1), 
+                              visible: (index > 0 && index < Question.questionList.length), 
                               child: Container(
                                 height: constraints2.maxHeight * 0.1,
                                 width: constraints2.maxWidth,
@@ -135,7 +135,8 @@ class _QuizBoxState extends State<QuizBox> {
                                     ),
                                   ],
                                 ),
-                              ))
+                              )
+                            )
                         ],
                       );
                     }),

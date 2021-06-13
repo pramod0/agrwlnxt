@@ -20,8 +20,8 @@ class _QuizState extends State<Quiz> {
     return Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
-            Colors.teal,
-            Colors.teal.withOpacity(0.2),
+            Colors.blueGrey.withOpacity(0.2),
+            Colors.white
               ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
         ),
         child: LayoutBuilder(builder: (context, constraints) {
@@ -35,7 +35,7 @@ class _QuizState extends State<Quiz> {
                   padding: const EdgeInsets.all(10),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                      color: Colors.yellow[700],
+                      color:  Colors.lightBlue[900].withOpacity(0.5),
                       borderRadius: BorderRadius.only(
                           bottomLeft:
                               Radius.circular(constraints.maxWidth * 0.075),
@@ -62,8 +62,8 @@ class _QuizState extends State<Quiz> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          Question.questionList[widget.index],
-                          style: TextStyle(fontSize: 16),
+                          '${Question.questionList[widget.index]}',
+                          style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
                           textAlign: TextAlign.left,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 30,
@@ -81,8 +81,8 @@ class _QuizState extends State<Quiz> {
                               print(val);
                             });
                           },
-                          activeColor: Colors.yellow,
-                          title: Text('Hello ,Want to check whether Multi-Line option is working or Not, Yes Its working '),
+                          activeColor: Theme.of(context).primaryColor,
+                          title: Text('${Options.options[widget.index][1]}'),
 
                         ),
                         RadioListTile(
@@ -95,8 +95,8 @@ class _QuizState extends State<Quiz> {
                               print(val);
                             });
                           },
-                          activeColor: Colors.yellow,
-                          title: Text('Do will have Images in our question ? ok,I am working on It'),
+                          activeColor: Theme.of(context).primaryColor,
+                          title: Text('${Options.options[widget.index][2]}'),
                           
                         ),
                         RadioListTile(
@@ -109,8 +109,8 @@ class _QuizState extends State<Quiz> {
                               print(val);
                             });
                           },
-                          activeColor: Colors.yellow,
-                          title: Text('In 3rd Question I am checking for multi line question'),
+                          activeColor: Theme.of(context).primaryColor,
+                          title: Text('${Options.options[widget.index][3]}'),
                           
                         ),
                         RadioListTile(
@@ -123,8 +123,8 @@ class _QuizState extends State<Quiz> {
                               print(val);
                             });
                           },
-                          activeColor: Colors.yellow,
-                          title: Text('will have MSQ in our quiz ? well, I am working on it..'),
+                          activeColor: Theme.of(context).primaryColor,
+                          title: Text('${Options.options[widget.index][4]}'),
                           
                         )
                       ],

@@ -1,3 +1,4 @@
+import 'package:agrwlnxt/Quiz-Folder/QuizAnalysis.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'questionData.dart';
@@ -150,7 +151,7 @@ class ScoreBoard extends StatelessWidget {
             ),
             Positioned(
               bottom: constraints.maxHeight * 0.05,
-              right: constraints.maxWidth * 0.1,
+              right: constraints.maxWidth * 0.05,
               child: RaisedButton(
                 color: Colors.grey[400],
                 child: Text('Restart',),
@@ -158,6 +159,18 @@ class ScoreBoard extends StatelessWidget {
                   Question.choosenOption.fillRange(0,Question.choosenOption.length);
                   restart(0);
                 }
+              )
+            ),
+            Positioned(
+              bottom: constraints.maxHeight * 0.05,
+              left: constraints.maxWidth * 0.05,
+              child: TextButton(
+                child: Text('Analyse',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,decoration: TextDecoration.underline,color: Theme.of(context).primaryColor)),
+                onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context)=>Analyse(),fullscreenDialog: true)
+                  );
+                },
               )
             )
           ],
@@ -167,49 +180,3 @@ class ScoreBoard extends StatelessWidget {
   }
 }
 
-// Text('Score Board \n Right = $posCount \n Wrong = $negCount \n Not Attempted = $notAttempted')
-
-/*
-SingleChildScrollView(
-                  child: DataTable(
-                    dividerThickness: 0,
-                    columns: [
-                      DataColumn(
-                        label: Text('Correct',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold)),
-                      ),
-                      DataColumn(
-                        label: Text('Wrong',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold)),
-                      ),
-                      DataColumn(
-                        label: Text('Left',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold)),
-                      ),
-                    ],
-                    rows: [
-                      DataRow(cells: [
-                        DataCell(Text('$posCount',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold)),
-                        ),
-                        DataCell(Text('$negCount',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold))),
-                        DataCell(Text('$notAttempted',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.lightBlue,
-                                fontWeight: FontWeight.bold))),
-                      ]),
-                    ],
-                  ),
-                )
-*/

@@ -16,8 +16,8 @@ class HistoryBox extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                   color: Colors.yellow[700].withOpacity(0.6),
                   child: ListTile(
-                    leading: Text('STD \n${QuizHistory.userData[index].std}'),
-                    title: Text(QuizHistory.userData[index].topic),
+                    leading: Text('\n${QuizHistory.userData[index].std}'),
+                    title: Text(QuizHistory.userData[index].topic),   
                     trailing: Text(QuizHistory.userData[index].marks),
                     subtitle: Text(DateFormat.yMd("en_US")
                         .format(QuizHistory.userData[index].date)),
