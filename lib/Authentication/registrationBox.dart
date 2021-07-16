@@ -56,7 +56,7 @@ class _RegistrationBoxState extends State<RegistrationBox> {
               padding: const EdgeInsets.all(6.0),
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Phone.No',
+                  labelText: 'Phone No.',
                   hintText: 'Enter your mobile number',
                   prefixText: '+91',
                   border: OutlineInputBorder(),
@@ -124,7 +124,7 @@ class _RegistrationBoxState extends State<RegistrationBox> {
               child: TextFormField(
                 obscureText: true,
                 decoration: InputDecoration(
-                  hintText: 'Re-enter your Password',
+                  hintText: 'Re-enter your password',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) =>
@@ -138,8 +138,8 @@ class _RegistrationBoxState extends State<RegistrationBox> {
             Container(
                 alignment: Alignment.bottomRight,
                 padding: const EdgeInsets.only(right: 6),
-                child: RaisedButton(
-                    child: const Text('Sing Up'), onPressed: _singUp))
+                child: ElevatedButton(
+                    child: const Text('Register'), onPressed: _singUp))
           ],
         ));
   }

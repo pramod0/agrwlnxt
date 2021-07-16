@@ -1,5 +1,5 @@
-import 'package:agrwlnxt/Authentication/registrationBox.dart';
 import 'package:flutter/material.dart';
+import 'package:agrwlnxt/Authentication/registrationBox.dart';
 import 'package:agrwlnxt/Authentication/loginBox.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
       floatingActionButton: TextButton(
         child: Text(
           _isLogin
-              ? 'Don\'t have an Account ? Sign up'
+              ? 'Don\'t have an account ? Sign up !'
               : 'Have an account ? Login now !',
           style: TextStyle(
               color: Theme.of(context).primaryColor,

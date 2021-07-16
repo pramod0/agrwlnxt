@@ -41,7 +41,7 @@ class _LoginBoxState extends State<LoginBox> {
             ),
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
-              return 'User Not found';
+              return 'User Not Found';
             },
             onSaved: (value) {
               print(value);
@@ -91,7 +91,7 @@ class _LoginBoxState extends State<LoginBox> {
                   ),
                   onPressed: () {},
                 ),
-                RaisedButton(child: const Text('Login'), onPressed: _login)
+                ElevatedButton(child: const Text('Login'), onPressed: _login)
               ],
             )),
       ]),
