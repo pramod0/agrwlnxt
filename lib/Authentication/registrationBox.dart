@@ -139,7 +139,8 @@ class _RegistrationBoxState extends State<RegistrationBox> {
                 alignment: Alignment.bottomRight,
                 padding: const EdgeInsets.only(right: 6),
                 child: ElevatedButton(
-                    child: const Text('Register'), onPressed: _singUp))
+                    child: const Text('Register'), onPressed: _singUp)
+                    )
           ],
         ));
   }
